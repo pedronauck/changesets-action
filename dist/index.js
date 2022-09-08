@@ -41628,6 +41628,7 @@ async function runPublish({
     for (let line of lines) {
       let pkgName = (_a = line[1]) == null ? void 0 : _a.trim();
       let pkg = packagesByName.get(pkgName);
+      console.log(pkg);
       if (pkg === void 0) {
         throw new Error(
           `Package "${pkgName}" not found.This is probably a bug in the action, please open an issue`

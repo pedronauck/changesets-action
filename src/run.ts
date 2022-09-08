@@ -158,6 +158,7 @@ export async function runPublish({
     for (let line of lines) {
       let pkgName = line[1]?.trim();
       let pkg = packagesByName.get(pkgName);
+      console.log(pkg);
       if (pkg === undefined) {
         throw new Error(
           `Package "${pkgName}" not found.` +
