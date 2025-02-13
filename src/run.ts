@@ -142,7 +142,8 @@ export async function runPublish({
   let { packages, tool } = await getPackages(cwd);
   let releasedPackages: Package[] = [];
 
-  let publishPackageRegex = /"(.+)("\s(at))/g;
+  let publishPackageRegex =
+    /@?[a-zA-Z0-9-]+(?:\/[a-zA-Z0-9-]+)?@\d+\.\d+\.\d+/g;
   let publishedSucceed = changesetPublishOutput.stdout.includes(
     `published successfully`
   );
@@ -156,11 +157,16 @@ export async function runPublish({
     let packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
 
     for (let line of lines) {
-      let pkgName = line[1]?.trim();
+      let [pkgNameAndVersion] = line;
+      let pkgName = pkgNameAndVersion.split("@")[0];
+      // Handle scoped packages that have an @ prefix
+      if (pkgNameAndVersion.startsWith("@")) {
+        pkgName = "@" + pkgNameAndVersion.split("@")[1];
+      }
       let pkg = packagesByName.get(pkgName);
       if (pkg === undefined) {
         throw new Error(
-          `Package "${pkgName}" not found.` +
+          `Package "${pkgName}" not found. ` +
             "This is probably a bug in the action, please open an issue"
         );
       }
