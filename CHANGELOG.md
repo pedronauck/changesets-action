@@ -1,5 +1,11 @@
 # @changesets/action
 
+## 1.4.0
+
+### Minor Changes
+
+- [`ebbfc3c`](https://github.com/changesets/action/commit/ebbfc3cb52e856c8b3325828f20b60297861f3f6) Thanks [@dotansimha](https://github.com/dotansimha)! - Allow to specify `createGithubReleases: aggregate`, in order to publish a single GitHub Release
+
 ## 1.3.0
 
 ### Minor Changes
